@@ -50,8 +50,8 @@
             <!-- Boutons de la deuxième ligne -->
 
             <Button
-                android:id="@+id/button_open_parenthesis"
-                android:layout_width="@dimen/button_size_largeur"
+                android:id="@+id/button_supprimer"
+                android:layout_width="175dp"
                 android:layout_height="@dimen/button_size"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/orange"
@@ -59,21 +59,9 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:text="("
+                android:text="c"
                 android:textColor="@color/withText" />
 
-            <Button
-                android:id="@+id/button_close_parenthesis"
-                android:layout_width="@dimen/button_size_largeur"
-                android:layout_height="@dimen/button_size"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/orange"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text=")"
-                android:textColor="@color/withText" />
 
             <Button
                 android:id="@+id/button_pourcentage"
@@ -327,22 +315,8 @@
                 android:textColor="@color/withText" />
 
             <Button
-                android:id="@+id/button_supprimer"
-                android:layout_width="@dimen/button_size_largeur"
-                android:layout_height="@dimen/button_size"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/gray"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="c"
-                android:textColor="@color/withText" />
-
-
-            <Button
                 android:id="@+id/button_egale"
-                android:layout_width="@dimen/button_size"
+                android:layout_width="175dp"
                 android:layout_height="@dimen/button_size"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/pink"

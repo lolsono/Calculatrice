@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         // Récupération des références des boutons en utilisant leur ID
 
-        val buttonOpenParenthesis = findViewById<Button>(R.id.button_open_parenthesis)
-        val buttonCloseParenthesis = findViewById<Button>(R.id.button_close_parenthesis)
         val buttonPourcentage = findViewById<Button>(R.id.button_pourcentage)
         val buttonDivision = findViewById<Button>(R.id.button_division)
 
@@ -56,14 +54,6 @@ class MainActivity : AppCompatActivity() {
 
 
         // Ajout des écouteurs de clic pour chaque bouton
-
-        buttonOpenParenthesis.setOnClickListener {
-            editTextDisplay.append("(")
-        }
-
-        buttonCloseParenthesis.setOnClickListener {
-            editTextDisplay.append(")")
-        }
 
         buttonPourcentage.setOnClickListener {
             editTextDisplay.append("%")
