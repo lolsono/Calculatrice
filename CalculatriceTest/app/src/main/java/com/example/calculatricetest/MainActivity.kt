@@ -4,9 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.logging.Handler
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,7 +63,12 @@ class MainActivity : AppCompatActivity() {
         // Ajout des écouteurs de clic pour chaque bouton
 
         buttonPourcentage.setOnClickListener {
-            editTextDisplay.append("%")
+            val currentText = editTextDisplay.text.toString()
+            if (currentText.isNotEmpty()) {
+                val number = currentText.toDouble()
+                val result = number / 100 // Calcul du pourcentage
+                editTextDisplay.setText(result.toString())
+            }
         }
 
         buttonDivision.setOnClickListener {
@@ -128,41 +140,63 @@ class MainActivity : AppCompatActivity() {
             editTextDisplay.append(".")
         }
 
-        buttonEgal.setOnClickListener {
+        var lastResult: Double = 0.0
 
+        buttonEgal.setOnClickListener {
             val secondNumber = editTextDisplay.text.toString().toDouble()
             var result = 0.0
 
             if (isAdditionClicked) {
-                result = firstNumber + secondNumber
+                result = lastResult + secondNumber
             }
 
             if (isSubtractionClicked) {
-                result = firstNumber - secondNumber
+                result = lastResult - secondNumber
             }
 
             if (isMultiplicationClicked) {
-                result = firstNumber * secondNumber
+                result = lastResult * secondNumber
             }
 
             if (isDivisionClicked) {
                 if (secondNumber != 0.0) {
-                    result = firstNumber / secondNumber
+                    result = lastResult / secondNumber
                 }
             }
+
+            lastResult = result // Stocke le résultat pour une utilisation ultérieure
 
             editTextDisplay.setText(result.toString())
         }
 
         // Écouteur pour le bouton de suppression
 
-        val buttonDelete = findViewById<Button>(R.id.button_supprimer)
-        buttonDelete.setOnClickListener {
-            val currentText = editTextDisplay.text.toString()
-            if (currentText.isNotEmpty()) {
-                val newText = currentText.substring(0, currentText.length - 1)
-                editTextDisplay.setText(newText)
-                editTextDisplay.setSelection(newText.length) // Met le curseur à la fin du texte
+        val button = findViewById<Button>(R.id.button_supprimer)
+        var startTime: Long = 0
+
+        button.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    startTime = System.currentTimeMillis() // Enregistre le temps du clic
+                    true // Retourne vrai pour indiquer que l'événement est consommé
+                }
+                MotionEvent.ACTION_UP -> {
+                    val duration = System.currentTimeMillis() - startTime // Calcule la durée de l'appui
+                    if (duration < 500) { // Si la durée est inférieure à 500 millisecondes, c'est un appui court
+                        // Action pour un appui court
+                        val currentText = editTextDisplay.text.toString()
+                        if (currentText.isNotEmpty()) {
+                            val newText = currentText.substring(0, currentText.length - 1)
+                            editTextDisplay.setText(newText)
+                            editTextDisplay.setSelection(newText.length)
+                        }
+                    } else {
+                        // Action pour un appui long
+                        editTextDisplay.setText("") // Efface tout le texte
+                    }
+                    true // Retourne vrai pour indiquer que l'événement est consommé
+                }
+                else -> false // Pour les autres actions, retourne faux
             }
         }
 
