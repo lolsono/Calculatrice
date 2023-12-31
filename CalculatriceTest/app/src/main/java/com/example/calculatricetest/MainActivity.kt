@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     //variable pour gestion de calcule addition
 
+    //gestion premier nombre pour calcule
     private var firstNumber: Double = 0.0
+
+    //variable pour action calcule
     private var isAdditionClicked: Boolean = false
     private var isSubtractionClicked: Boolean = false
     private var isMultiplicationClicked: Boolean = false
@@ -140,27 +143,32 @@ class MainActivity : AppCompatActivity() {
             editTextDisplay.append(".")
         }
 
-        var lastResult: Double = 0.0
+        //partie logique calcule bouton resultat
 
         buttonEgal.setOnClickListener {
             val secondNumber = editTextDisplay.text.toString().toDouble()
+
+            //stockage resultat
             var result = 0.0
 
+            //stockage ancien resultat pour utilisation ultèrieur
+            var lastResult: Double = 0.0
+
             if (isAdditionClicked) {
-                result = lastResult + secondNumber
+                result = firstNumber + secondNumber
             }
 
             if (isSubtractionClicked) {
-                result = lastResult - secondNumber
+                result = firstNumber - secondNumber
             }
 
             if (isMultiplicationClicked) {
-                result = lastResult * secondNumber
+                result = firstNumber * secondNumber
             }
 
             if (isDivisionClicked) {
                 if (secondNumber != 0.0) {
-                    result = lastResult / secondNumber
+                    result = firstNumber / secondNumber
                 }
             }
 
